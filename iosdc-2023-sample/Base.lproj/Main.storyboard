@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="iosdc_2023_sample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mUz-bc-QTB">
+                                <rect key="frame" x="0.0" y="59" width="393" height="715"/>
+                                <color key="backgroundColor" name="Base"/>
+                                <string key="text"># 君だけのGFMエディタを作ろう！
+NSAttributedStringとSwiftUIのMarkdown対応により、
+誰もが1度は「僕の考えた最強のMarkdownエディタ」を作る夢を見たでしょう。
+
+エディタには、見出し・太字・リストなどの記法を簡単に入力できるボタンが欲しくなります。
+その時に「正規表現で実現できそう」と考える人がいるかもしれません。
+**そう、過去の私です。**
+しかし、正規表現を用いた実装は失敗に終わります。
+
+このセッションではその失敗をもとに、
+
+- 正規表現で入力補助機能の実装が困難な理由
+- apple/swift-markdownとcmark-gfm
+- `SourceLocation`をUITextViewで扱う方法
+- Syntax Highlightの自作方法
+
+について話します。
+
+このセッションを聞くことで、みなさんもオリジナルのMarkdownエディタが作れるようになります！</string>
+                                <color key="textColor" name="Text"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6KJ-B1-yiJ">
+                                <rect key="frame" x="0.0" y="774" width="393" height="44"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9Wv-fP-uTz">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G1h-7u-zai">
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="1"/>
+                                                <color key="backgroundColor" name="BaseVariant"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="9de-T0-FwS"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rAP-gP-z5d">
+                                                <rect key="frame" x="0.0" y="1" width="393" height="43"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="90O-Zr-16T">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1" height="43"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="1" id="rCU-j7-2IX"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYB-pw-QVm">
+                                                        <rect key="frame" x="9" y="0.0" width="43" height="43"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="zYB-pw-QVm" secondAttribute="height" multiplier="1:1" id="4mN-su-2Qp"/>
+                                                        </constraints>
+                                                        <color key="tintColor" name="Button"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain">
+                                                            <imageReference key="image" image="keyboard.chevron.compact.down" catalog="system" symbolScale="medium"/>
+                                                        </buttonConfiguration>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bVo-Ne-10v">
+                                                        <rect key="frame" x="60" y="0.0" width="1" height="43"/>
+                                                        <color key="backgroundColor" name="BaseVariant"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="1" id="foZ-2n-bbR"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC8-My-Rob">
+                                                        <rect key="frame" x="69" y="0.0" width="43" height="43"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="fC8-My-Rob" secondAttribute="height" multiplier="1:1" id="gFM-0m-Re5"/>
+                                                        </constraints>
+                                                        <color key="tintColor" name="Button"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain">
+                                                            <imageReference key="image" image="bold" catalog="system" symbolScale="medium"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="boldButtonTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qRJ-qA-CdE"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fIE-1v-oVB">
+                                                        <rect key="frame" x="120" y="0.0" width="43" height="43"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="fIE-1v-oVB" secondAttribute="height" multiplier="1:1" id="wt9-9I-WKp"/>
+                                                        </constraints>
+                                                        <color key="tintColor" name="Button"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain">
+                                                            <imageReference key="image" image="italic" catalog="system" symbolScale="medium"/>
+                                                        </buttonConfiguration>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQB-Dm-4ZS">
+                                                        <rect key="frame" x="171" y="0.0" width="43" height="43"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="QQB-Dm-4ZS" secondAttribute="height" multiplier="1:1" id="FZA-9Y-mLa"/>
+                                                        </constraints>
+                                                        <color key="tintColor" name="Button"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain">
+                                                            <imageReference key="image" image="underline" catalog="system" symbolScale="medium"/>
+                                                        </buttonConfiguration>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtm-br-ypb">
+                                                        <rect key="frame" x="222" y="0.0" width="43" height="43"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="gtm-br-ypb" secondAttribute="height" multiplier="1:1" id="46E-zC-YxR"/>
+                                                        </constraints>
+                                                        <color key="tintColor" name="Button"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain">
+                                                            <imageReference key="image" image="list.bullet" catalog="system" symbolScale="medium"/>
+                                                        </buttonConfiguration>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uUs-KW-nPD">
+                                                        <rect key="frame" x="273" y="0.0" width="43" height="43"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="uUs-KW-nPD" secondAttribute="height" multiplier="1:1" id="f43-WI-cZj"/>
+                                                        </constraints>
+                                                        <color key="tintColor" name="Button"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain">
+                                                            <imageReference key="image" image="increase.indent" catalog="system" symbolScale="medium"/>
+                                                        </buttonConfiguration>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOf-ou-8nV">
+                                                        <rect key="frame" x="324" y="0.0" width="43" height="43"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="VOf-ou-8nV" secondAttribute="height" multiplier="1:1" id="ecz-AU-fJ8"/>
+                                                        </constraints>
+                                                        <color key="tintColor" name="Button"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain">
+                                                            <imageReference key="image" image="decrease.indent" catalog="system" symbolScale="medium"/>
+                                                        </buttonConfiguration>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pkm-v5-nF4">
+                                                        <rect key="frame" x="375" y="0.0" width="18" height="43"/>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="uUs-KW-nPD" firstAttribute="width" secondItem="uUs-KW-nPD" secondAttribute="height" multiplier="1:1" id="0JY-Yx-IPH"/>
+                                                    <constraint firstItem="VOf-ou-8nV" firstAttribute="width" secondItem="VOf-ou-8nV" secondAttribute="height" multiplier="1:1" id="LHR-tp-LuW"/>
+                                                    <constraint firstItem="gtm-br-ypb" firstAttribute="width" secondItem="gtm-br-ypb" secondAttribute="height" multiplier="1:1" id="S2b-ge-uFY"/>
+                                                    <constraint firstItem="fC8-My-Rob" firstAttribute="width" secondItem="fC8-My-Rob" secondAttribute="height" multiplier="1:1" id="XBJ-JY-oqT"/>
+                                                    <constraint firstItem="VOf-ou-8nV" firstAttribute="width" secondItem="VOf-ou-8nV" secondAttribute="height" multiplier="1:1" id="fcX-US-ytr"/>
+                                                    <constraint firstItem="QQB-Dm-4ZS" firstAttribute="width" secondItem="QQB-Dm-4ZS" secondAttribute="height" multiplier="1:1" id="fpR-gk-6QF"/>
+                                                    <constraint firstItem="gtm-br-ypb" firstAttribute="width" secondItem="gtm-br-ypb" secondAttribute="height" multiplier="1:1" id="g3m-6l-h0m"/>
+                                                    <constraint firstItem="QQB-Dm-4ZS" firstAttribute="width" secondItem="QQB-Dm-4ZS" secondAttribute="height" multiplier="1:1" id="hO9-eT-0hZ"/>
+                                                    <constraint firstItem="fIE-1v-oVB" firstAttribute="width" secondItem="fIE-1v-oVB" secondAttribute="height" multiplier="1:1" id="xbf-5Y-m5H"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="Base"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="9Wv-fP-uTz" secondAttribute="bottom" id="I6z-nT-yKH"/>
+                                    <constraint firstAttribute="trailing" secondItem="9Wv-fP-uTz" secondAttribute="trailing" id="IaW-cp-VqH"/>
+                                    <constraint firstItem="9Wv-fP-uTz" firstAttribute="top" secondItem="6KJ-B1-yiJ" secondAttribute="top" id="JcF-7e-iN0"/>
+                                    <constraint firstItem="9Wv-fP-uTz" firstAttribute="leading" secondItem="6KJ-B1-yiJ" secondAttribute="leading" id="Myh-jw-ybF"/>
+                                    <constraint firstAttribute="height" constant="44" id="pgU-PA-Bj7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <keyboardLayoutGuide key="keyboard" id="Vqj-Qn-GSR"/>
+                        <color key="backgroundColor" name="Base"/>
+                        <constraints>
+                            <constraint firstItem="6KJ-B1-yiJ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="4vC-co-JTC"/>
+                            <constraint firstItem="6KJ-B1-yiJ" firstAttribute="top" secondItem="mUz-bc-QTB" secondAttribute="bottom" id="AAa-Bc-2t1"/>
+                            <constraint firstItem="mUz-bc-QTB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Bwx-kk-hcW"/>
+                            <constraint firstItem="6KJ-B1-yiJ" firstAttribute="bottom" secondItem="Vqj-Qn-GSR" secondAttribute="top" id="CrU-eW-0Z4"/>
+                            <constraint firstItem="6KJ-B1-yiJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ckS-kN-PNc"/>
+                            <constraint firstItem="mUz-bc-QTB" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yZc-d9-dhb"/>
+                            <constraint firstItem="mUz-bc-QTB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ysA-ta-zND"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="mUz-bc-QTB" id="627-5h-toe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="130.53435114503816" y="-34.507042253521128"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bold" catalog="system" width="128" height="128"/>
+        <image name="decrease.indent" catalog="system" width="128" height="89"/>
+        <image name="increase.indent" catalog="system" width="128" height="89"/>
+        <image name="italic" catalog="system" width="115" height="128"/>
+        <image name="keyboard.chevron.compact.down" catalog="system" width="128" height="100"/>
+        <image name="list.bullet" catalog="system" width="128" height="87"/>
+        <image name="underline" catalog="system" width="105" height="128"/>
+        <namedColor name="Base">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="BaseVariant">
+            <color red="0.9570000171661377" green="0.96100002527236938" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Button">
+            <color red="0.34099999070167542" green="0.37599998712539673" blue="0.41600000858306885" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Text">
+            <color red="0.14100000262260437" green="0.16099999845027924" blue="0.18400000035762787" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
